@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoMeal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root{--y:#F8B602;--bg:#F4F4F4;--ink:#2B2B2B;--mute:#9A94A6;--red:#E8545A;--card:#fff}
+*{box-sizing:border-box;margin:0}
+body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:#fff}
+button{font:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--y);outline-offset:2px}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr) 340px;min-height:100vh}
+/* sidebar */
+.side{padding:40px 24px;display:flex;flex-direction:column;gap:12px}
+.logo{font-size:32px;font-weight:700;text-align:center;margin-bottom:40px}
+.logo span{color:var(--y)}
+.nav{display:flex;align-items:center;gap:20px;width:100%;padding:0 30px;height:64px;border-radius:14px;color:var(--mute);font-size:16px;text-align:left}
+.nav i{width:28px;height:28px;border-radius:8px;background:currentColor;opacity:.5;flex:none}
+.nav.on{background:var(--y);color:#fff;box-shadow:0 14px 24px -12px rgba(248,182,2,.6)}
+.nav.on i{background:#fff;opacity:1}
+.promo{margin-top:40px;padding:32px;border-radius:20px;background:linear-gradient(135deg,#F8B602,#F2C14E);color:#fff;font-weight:600;line-height:1.4}
+.promo button{margin-top:16px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;padding:10px 22px;border-radius:8px}
+/* main */
+.main{background:var(--bg);padding:40px;display:flex;flex-direction:column;gap:32px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:24px}
+h1{font-size:32px;font-weight:700}
+.search{display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:0 24px;height:60px;width:min(100%,513px)}
+.search input{border:0;flex:1;font:inherit;font-size:15px;background:none}
+.banner{background:var(--y);color:#fff;border-radius:16px;padding:44px 52px;min-height:240px}
+.banner h2{font-size:32px;line-height:1.5;max-width:520px}
+.banner p{font-size:13px;max-width:460px;margin-top:12px;opacity:.9}
+.sec-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+h3{font-size:22px;font-weight:600}
+.link{color:var(--y);font-size:15px;display:flex;align-items:center;gap:10px}
+.chev{width:12px;height:12px;transform:rotate(-90deg)}
+.grid{display:grid;gap:16px}
+.cats{grid-template-columns:repeat(6,1fr)}
+.cat{background:var(--card);border-radius:16px;height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--mute)}
+.cat b{font-size:44px;font-weight:400}
+.dishes,.recent{grid-template-columns:repeat(3,1fr)}
+.dish{background:var(--card);border-radius:16px;padding:0 32px 24px;position:relative}
+.dish .art{height:200px;display:grid;place-items:center;font-size:96px}
+.tag{position:absolute;top:28px;left:0;background:var(--red);color:#fff;font-size:15px;padding:4px 16px;border-radius:0 6px 6px 0}
+.stars{color:var(--y);font-size:22px;letter-spacing:2px}
+.dish-f{display:flex;justify-content:space-between;align-items:flex-end}
+.name{font-size:17px}
+.price{font-size:26px;font-weight:600}
+.price::first-letter{color:var(--y)}
+.add{width:48px;height:48px;border-radius:10px;background:var(--y);color:#fff;font-size:28px}
+.rec{background:var(--card);border-radius:16px;padding:32px;text-align:center}
+.rec .art{font-size:88px;height:140px;display:grid;place-items:center}
+.rec .meta{color:var(--mute);margin-top:8px}
+.empty{flex:1;display:grid;place-items:center;color:var(--mute)}
+/* right panel */
+.panel{padding:40px 24px;display:flex;flex-direction:column;gap:20px}
+.icons{display:flex;align-items:center;gap:20px}
+.icons i{width:28px;height:28px;border-radius:8px;background:var(--ink);opacity:.8}
+.avatar{margin-left:auto;width:60px;height:60px;border-radius:14px;background:#d9c7b8;display:grid;place-items:center;font-size:30px}
+.bal{position:relative;overflow:hidden;background:var(--y);border-radius:16px;padding:32px;display:flex;gap:16px;align-items:flex-start;color:#fff}
+.bal::before{content:"";position:absolute;left:-60px;top:-40px;width:200px;height:200px;border-radius:50%;background:#F58A2E;opacity:.8}
+.bal>*{position:relative}
+.bal-box{background:#fff;color:var(--ink);border-radius:14px;padding:16px;flex:1}
+.bal-box small{font-size:13px}.bal-box strong{display:block;font-size:30px}
+.act{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;color:#fff}
+.act span{width:56px;height:56px;border-radius:14px;background:#fff;color:var(--ink);display:grid;place-items:center}
+.addr small{color:var(--mute);font-size:18px}
+.addr-row{display:flex;align-items:center;gap:10px;margin:6px 0}
+.addr-row b{flex:1}
+.addr-row img{width:22px}
+.change{border:1px solid var(--y);color:var(--y);border-radius:6px;padding:4px 18px;font-size:14px}
+.addr p{color:var(--mute);font-size:14px;margin-bottom:12px}
+.chip{border:1px solid var(--ink);border-radius:6px;padding:4px 18px;font-size:14px;margin-right:12px}
+.order{flex:1;min-height:180px;border-bottom:1px solid #ddd}
+.sum{display:flex;flex-direction:column;gap:20px}
+.sum small{color:var(--mute)}
+.coupon{display:flex;align-items:center;gap:20px;border:1px solid var(--y);background:var(--bg);border-radius:12px;height:64px;padding:0 24px;font-size:14px;width:100%}
+.coupon i{width:40px;height:40px;border-radius:10px;background:var(--y)}
+.coupon span{flex:1;text-align:center}
+.coupon .chev{transform:rotate(-90deg);width:14px}
+.checkout{background:var(--y);color:#fff;font-size:18px;font-weight:500;height:64px;border-radius:12px;width:100%}
+[hidden]{display:none!important}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.cats,.dishes,.recent{grid-template-columns:repeat(2,1fr)}.side{flex-direction:row;flex-wrap:wrap}.promo{display:none}.logo{width:100%;margin-bottom:8px}.nav{width:auto;padding:0 18px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">GoMeal<span>.</span></div>
+    <nav style="display:contents">
+      <button class="nav on" data-view="dashboard"><i></i>Dashboard</button>
+      <button class="nav" data-view="order"><i></i>Food Order</button>
+      <button class="nav"><i></i>Favorite</button>
+      <button class="nav"><i></i>Message</button>
+      <button class="nav"><i></i>Order History</button>
+      <button class="nav"><i></i>Bills</button>
+      <button class="nav"><i></i>Setting</button>
+    </nav>
+    <div class="promo">Upgrade your Account to Get Free Voucher<br><button>Upgrade</button></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1>Hello, World</h1>
+      <label class="search"><span>🔍</span><input type="search" placeholder="What do you want eat today..."></label>
+    </header>
+
+    <div id="dashboard" class="view" style="display:contents">
+      <section class="banner">
+        <h2>Get Discount Voucher<br>Up To 20%</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Category</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid cats">
+          <div class="cat"><b>🧁</b>Bakery</div><div class="cat"><b>🍔</b>Burger</div><div class="cat"><b>🥤</b>Beverage</div>
+          <div class="cat"><b>🍗</b>Chicken</div><div class="cat"><b>🍕</b>Pizza</div><div class="cat"><b>🐟</b>Seafood</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Popular Dishes</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid dishes">
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Fish Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Fish Burger">+</button></div></article>
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Beef Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Beef Burger">+</button></div></article>
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Cheese Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Cheese Burger">+</button></div></article>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Recent Order</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid recent">
+          <article class="rec"><div class="art">🍕</div><div>Fish Burger</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+          <article class="rec"><div class="art">🍜</div><div>Japan Ramen</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+          <article class="rec"><div class="art">🍛</div><div>Fried Rice</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+        </div>
+      </section>
+    </div>
+
+    <div id="order" class="view empty" hidden>Your menu is empty. Add dishes from the dashboard.</div>
+  </main>
+
+  <aside class="panel">
+    <div class="icons"><i></i><i></i><i></i><div class="avatar">🙂</div></div>
+    <h3>Your Balance</h3>
+    <div class="bal">
+      <div class="bal-box"><small>Balance</small><strong>$12.000</strong></div>
+      <div class="act"><span>⬇</span>Top Up</div>
+      <div class="act"><span>⬆</span>Transfer</div>
+    </div>
+    <div class="addr">
+      <small>Your Address</small>
+      <div class="addr-row"><img src="assets/Location.svg" alt=""><b>Elm Street, 23</b><button class="change">Change</button></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      <button class="chip">Add Details</button><button class="chip">Add Note</button>
+    </div>
+    <h3>Order Menu</h3>
+    <div class="order"></div>
+    <div class="sum">
+      <small>Service</small><span>Total</span>
+      <button class="coupon"><i></i><span>Have a coupon code?</span><img class="chev" src="assets/chevron-down.svg" alt=""></button>
+      <button class="checkout">Checkout</button>
+    </div>
+  </aside>
+</div>
+<script>
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('on',n===b));
+  document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==b.dataset.view);
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoMeal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">GoMeal<span>.</span></div>
+    <nav style="display:contents">
+      <button class="nav on" data-view="dashboard"><i></i>Dashboard</button>
+      <button class="nav" data-view="order"><i></i>Food Order</button>
+      <button class="nav"><i></i>Favorite</button>
+      <button class="nav"><i></i>Message</button>
+      <button class="nav"><i></i>Order History</button>
+      <button class="nav"><i></i>Bills</button>
+      <button class="nav"><i></i>Setting</button>
+    </nav>
+    <div class="promo">Upgrade your Account to Get Free Voucher<br><button>Upgrade</button></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1>Hello, World</h1>
+      <label class="search"><span>🔍</span><input type="search" placeholder="What do you want eat today..."></label>
+    </header>
+
+    <div id="dashboard" class="view" style="display:contents">
+      <section class="banner">
+        <h2>Get Discount Voucher<br>Up To 20%</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Category</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid cats">
+          <div class="cat"><b>🧁</b>Bakery</div><div class="cat"><b>🍔</b>Burger</div><div class="cat"><b>🥤</b>Beverage</div>
+          <div class="cat"><b>🍗</b>Chicken</div><div class="cat"><b>🍕</b>Pizza</div><div class="cat"><b>🐟</b>Seafood</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Popular Dishes</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid dishes">
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Fish Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Fish Burger">+</button></div></article>
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Beef Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Beef Burger">+</button></div></article>
+          <article class="dish"><span class="tag">15% Off</span><div class="art">🍔</div><div class="stars">★★★★★</div>
+            <div class="dish-f"><div><div class="name">Cheese Burger</div><div class="price">$5.59</div></div><button class="add" aria-label="Add Cheese Burger">+</button></div></article>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-h"><h3>Recent Order</h3><a class="link" href="#">View all <img class="chev" src="assets/chevron-down.svg" alt=""></a></div>
+        <div class="grid recent">
+          <article class="rec"><div class="art">🍕</div><div>Fish Burger</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+          <article class="rec"><div class="art">🍜</div><div>Japan Ramen</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+          <article class="rec"><div class="art">🍛</div><div>Fried Rice</div><div class="price">$5.59</div><div class="meta">4.97 km • 21 min</div></article>
+        </div>
+      </section>
+    </div>
+
+    <div id="order" class="view empty" hidden>Your menu is empty. Add dishes from the dashboard.</div>
+  </main>
+
+  <aside class="panel">
+    <div class="icons"><i></i><i></i><i></i><div class="avatar">🙂</div></div>
+    <h3>Your Balance</h3>
+    <div class="bal">
+      <div class="bal-box"><small>Balance</small><strong>$12.000</strong></div>
+      <div class="act"><span>⬇</span>Top Up</div>
+      <div class="act"><span>⬆</span>Transfer</div>
+    </div>
+    <div class="addr">
+      <small>Your Address</small>
+      <div class="addr-row"><img src="assets/Location.svg" alt=""><b>Elm Street, 23</b><button class="change">Change</button></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      <button class="chip">Add Details</button><button class="chip">Add Note</button>
+    </div>
+    <h3>Order Menu</h3>
+    <div class="order"></div>
+    <div class="sum">
+      <small>Service</small><span>Total</span>
+      <button class="coupon"><i></i><span>Have a coupon code?</span><img class="chev" src="assets/chevron-down.svg" alt=""></button>
+      <button class="checkout">Checkout</button>
+    </div>
+  </aside>
+</div>
+<script>
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('on',n===b));
+  document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==b.dataset.view);
+}));
+</script>
+</body>
+</html>
